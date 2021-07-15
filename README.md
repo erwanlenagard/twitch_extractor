@@ -1,5 +1,9 @@
 # Twitch Extractor
 
+### Application
+
+L'application <a href="https://twitchextractor.herokuapp.com/" target="_blank">Twitch Extractor</a> est accessible en ligne. 
+
 ### Pré-requis
 <p>Il est nécessaire de déclarer une application Twitch et de récupérer des identifiants API depuis la <a href="https://dev.twitch.tv/console/apps" target="_blank">console Developers</a>. </p>
 
