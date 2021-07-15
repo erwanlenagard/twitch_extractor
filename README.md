@@ -17,8 +17,9 @@ L'application <a href="https://twitchextractor.herokuapp.com/" target="_blank">T
 </ul></p>
 
 ### Notes
-<p>Cette application ne capture pas les streams live, mais uniquement les vidéos archivées sur la chaine. Il est nécessaire de prendre cela en compte lors de l'interprétation des données : 
+<p>Cette application capture uniquement les vidéos archivées sur la chaine. Il est nécessaire de prendre cela en compte lors de l'interprétation des données : 
 <ul>
+  <li>L'application ne capture pas les streams lives, ni les clips de la chaine.</li>
   <li>Il peut exister un différentiel important entre le nombre de vues cumulées de la chaine (métrique incluant la performance des streams live) et le total de vues cumulées des vidéos archivées</li>
   <li>Twitch limite la durée de stockage des vidéos selon le type de chaine</li>
   <li>Les streams live ne sont pas systématiquement archivées sur une chaine, le streameur sélectionne les vidéos à archiver</li>
