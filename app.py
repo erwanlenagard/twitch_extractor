@@ -113,7 +113,7 @@ def parsing_videos(video_json):
         df_videos["month"]=pd.to_datetime(df_videos['created_at']).dt.strftime('%Y-%m')
         df_videos[["hours","min","sec"]]=df_videos["duration"].str.extract(r"((\d+)h)?((\d+)m)?((\d+)s)",expand=True)[[1,3,5]].fillna(0)
         df_videos["duration_s"]=df_videos['hours'].astype(int)*3600+df_videos['min'].astype(int)*60+df_videos["sec"].astype(int)
-        df_videos["heures de streams"]=df_videos['duration_s'].astype(int)/3600  
+        df_videos["heures de videos"]=df_videos['duration_s'].astype(int)/3600  
         
     return df_videos
 
@@ -196,7 +196,7 @@ def main():
                         df_vid=df_videos.groupby(["month","video_type"]).agg({"video_id":"nunique"}).reset_index()\
                         .sort_values(by="month",ascending=False)   
                         df_vid["video_type"]=df_vid["video_type"].str.replace("VideoType.","")
-                        df_month=df_videos.groupby("month").agg({"heures de streams":"sum","view_count":"sum"}).reset_index().sort_values(by="month",ascending=False) 
+                        df_month=df_videos.groupby("month").agg({"heures de videos":"sum","view_count":"sum"}).reset_index().sort_values(by="month",ascending=False) 
 
                         # on calcule le mois le plus ancien sur une période de 12 derniers mois d'activité
                         min_month=df_vid["month"][:12].min()  
@@ -204,13 +204,13 @@ def main():
                         ###################################
                         # AFFICHAGE DES KEY METRICS
                         st.subheader("Key metrics")
-                        st.write("<table style=\"border-collapse: collapse;margin: 25px 0;font-size: 0.9em;font-family: sans-serif;min-width: 400px;width:100%;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);\"><thead style=\"background-color: #F63366;color: #ffffff;text-align: left;\"><tr><th>KPI</th><th>Depuis la création de la chaine</th><th>12 derniers mois d'activité</th></tr></thead><tbody><tr><td><b>#vidéos</b></td><td>"+str(len(df_videos["video_id"].unique()))+" vidéos</td><td>"+str(df_vid["video_id"][:12].sum())+" vidéos</td></tr><tr><td><b>#vues</b></td><td>"+str(human_format(df_videos["view_count"].sum()))+" vues</td><td>"+str(human_format(df_month["view_count"][:12].sum()))+" vues</td></tr><tr><td><b>Moyenne de vues par vidéo</b></td><td>"+str(round(df_videos["view_count"].mean()))+" vues</td><td>"+str(round(df_videos[df_videos['month']>=min_month]["view_count"].mean()))+" vues</td></tr><tr><td><b>Durée cumulée des vidéos</b></td><td>"+str(round(df_videos["heures de streams"].sum()))+" heures</td><td>"+str(round(df_videos[df_videos['month']>=min_month]["heures de streams"].sum()))+" heures</td></tr></tbody></table>", unsafe_allow_html=True)
+                        st.write("<table style=\"border-collapse: collapse;margin: 25px 0;font-size: 0.9em;font-family: sans-serif;min-width: 400px;width:100%;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);\"><thead style=\"background-color: #F63366;color: #ffffff;text-align: left;\"><tr><th>KPI</th><th>Depuis la création de la chaine</th><th>12 derniers mois d'activité</th></tr></thead><tbody><tr><td><b>#vidéos</b></td><td>"+str(len(df_videos["video_id"].unique()))+" vidéos</td><td>"+str(df_vid["video_id"][:12].sum())+" vidéos</td></tr><tr><td><b>#vues</b></td><td>"+str(human_format(df_videos["view_count"].sum()))+" vues</td><td>"+str(human_format(df_month["view_count"][:12].sum()))+" vues</td></tr><tr><td><b>Moyenne de vues par vidéo</b></td><td>"+str(round(df_videos["view_count"].mean()))+" vues</td><td>"+str(round(df_videos[df_videos['month']>=min_month]["view_count"].mean()))+" vues</td></tr><tr><td><b>Durée cumulée des vidéos</b></td><td>"+str(round(df_videos["heures de videos"].sum()))+" heures</td><td>"+str(round(df_videos[df_videos['month']>=min_month]["heures de videos"].sum()))+" heures</td></tr></tbody></table>", unsafe_allow_html=True)
 
                         ###################################
                         # AFFICHAGE DES DIAGRAMMES BARRES
 
                         create_barchart_12month(df_vid,'month','video_id',"video_type","#Vidéos")    
-                        create_barchart_12month(df_month,'month','heures de streams',None,"#Durée des contenus")    
+                        create_barchart_12month(df_month,'month','heures de videos',None,"#Durée des contenus")    
                         create_barchart_12month(df_month,'month','view_count',None,"#Vues")
 
                         ###################################
