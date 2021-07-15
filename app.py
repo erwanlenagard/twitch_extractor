@@ -236,7 +236,7 @@ def main():
 
             except:
                 pass
-                st.error("Impossible de récupérer les infos de cet chaine") 
+                st.error("Impossible de récupérer les infos de cette chaine") 
 
 if __name__ == "__main__":
     main()    
