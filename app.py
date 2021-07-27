@@ -237,6 +237,6 @@ def main():
             except:
                 pass
                 st.error("Impossible de récupérer les infos de cette chaine") 
-
+    st.sidebar.write("<br/><br/><p><center><a href=\"http://www.erwanlenagard.com\" target=\"_blank\" style=\"color:#434444;\">@Erwan Le Nagard</a></center></p>", unsafe_allow_html=True)
 if __name__ == "__main__":
     main()    
