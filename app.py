@@ -120,14 +120,10 @@ def parsing_videos(video_json):
 
 @st.cache()
 def get_table_download_link(df,channel):
-    """Generates a link allowing the data in a given panda dataframe to be downloaded
-    in:  dataframe
-    out: href string
-    """
     names=df.columns
     csv = df.to_csv(header=names, sep=';',encoding='utf-8',index=False, decimal=",")
-    b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
-    href = f'<a href="data:file/csv;base64,{b64}" download="video_{channel}.csv"><button style=\"background-color: #14A1A1;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">Télécharger le CSV</button></a>'
+    b64 = base64.b64encode(csv.encode()).decode() 
+    href = f'<div style=\"background-color: #e1e1e1; padding: 10px 10px 10px 10px;\"><center><a href="data:file/csv;base64,{b64}" download="video_{channel}.csv"><button style=\"background-color: #14A1A1;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;width: 300px;margin: 4px 2px;border-radius: 8px;\"><b>Télécharger les données brutes</b></button></a></center></div>'
     return href
 
 def create_barchart_12month(df,x,y,color,title):
@@ -227,8 +223,9 @@ def main():
                         # AFFICHAGE DES DONNEES COLLECTEES
                         st.subheader("Aperçu des vidéos :")
                         cols=['video_id','login','title','description','published_at','url','view_count','video_type','duration']
-                        st.markdown(get_table_download_link(df_videos[cols],channel), unsafe_allow_html=True)
+                        
                         st.write(df_videos[cols])
+                        st.markdown(get_table_download_link(df_videos[cols],channel), unsafe_allow_html=True)
 
                     except:
                         pass
