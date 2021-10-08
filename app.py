@@ -104,7 +104,7 @@ def parsing_videos(video_json):
             duration=video['duration']
             
             current_vid=(video_id,user_id,user_login,user_name,title,description,created_at,published_at,url,thumbnail_url,
-                         viewable,view_count,language,vid_type,duration)
+                         viewable,view_count,language,str(vid_type),duration)
             all_vids.append(current_vid)
         df_videos=pd.DataFrame.from_records(all_vids,columns=['video_id','user_id','login','user_name','title','description',
                                                               'created_at','published_at','url','thumbnail_url','viewable',
