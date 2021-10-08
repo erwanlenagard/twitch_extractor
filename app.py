@@ -178,10 +178,10 @@ def main():
             try:
                 users_json=twitch.get_users(logins=channel)
                 user_info["data"]=user_info["data"]+users_json['data']
-                                
-                st.write("<div style=\"background-color: #e1e1e1;float:left;padding:10px 10px 10px 10px;width:100%;border-radius:5px;\"><div><div style=\"float: left;width:20%;\"><a href=\"http://www.twitch.com/"+user_info["data"][0]["login"]+"\" target=\"_blank\"><img src=\""+user_info["data"][0]["profile_image_url"]+"\" style=\"border-radius: 50%;\" width=\"150\"/></img></a></div><div style=\"float: left;width:80%;\"><h1>"+user_info["data"][0]["display_name"]+"</h1><br/>"+user_info["data"][0]["description"]+"<br/><hr><button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">"+str(human_format(user_info["data"][0]["view_count"]))+" vues cumulées</button>&nbsp;<button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">"+user_info["data"][0]["broadcaster_type"]+"</button>&nbsp;<button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">Chaine créée le "+datetime.strptime(user_info["data"][0]["created_at"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%d-%m-%Y")+"</button></div></div></div>",unsafe_allow_html=True)
-                
-        
+
+                st.write("<div style=\"background-color: #e1e1e1;float:left;padding:10px 10px 10px 10px;width:100%;border-radius:5px;\"><div><div style=\"float: left;width:20%;\"><a href=\"http://www.twitch.com/"+user_info["data"][0]["login"]+"\" target=\"_blank\"><img src=\""+user_info["data"][0]["profile_image_url"]+"\" style=\"border-radius: 50%;\" width=\"150\"/></img></a></div><div style=\"float: left;width:80%;\"><h1>"+user_info["data"][0]["display_name"]+"</h1><br/>"+user_info["data"][0]["description"]+"<br/><hr><button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">"+str(human_format(user_info["data"][0]["view_count"]))+" vues cumulées</button>&nbsp;<button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">"+user_info["data"][0]["broadcaster_type"]+"</button>&nbsp;<button style=\"background-color: #F63366;border: none;color: white;padding: 10px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;margin: 4px 2px;border-radius: 8px;\">Chaine créée le "+datetime.strptime(user_info["data"][0]["created_at"], "%Y-%m-%dT%H:%M:%S%fZ").strftime("%d-%m-%Y")+"</button></div></div></div>",unsafe_allow_html=True)
+
+
                 df_videos=pd.DataFrame()
                 with st.spinner("Analyse des vidéos en cours"):
                     try:
@@ -223,7 +223,7 @@ def main():
                         # AFFICHAGE DES DONNEES COLLECTEES
                         st.subheader("Aperçu des vidéos :")
                         cols=['video_id','login','title','description','published_at','url','view_count','video_type','duration']
-                        
+
                         st.write(df_videos[cols])
                         st.markdown(get_table_download_link(df_videos[cols],channel), unsafe_allow_html=True)
 
